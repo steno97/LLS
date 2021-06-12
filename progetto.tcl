@@ -1,36 +1,63 @@
 source ./scripts/pt_analysis
 
-################################################
-#extract the list of cells belonging to the most critical paths:
-set wrt_path_collection [get_timing_paths] ;# collection of timing paths - size 1
-foreach_in_collection timing_point [get_attribute $wrt_path_collection points] { ;# scan the collection of timing points belonging to the path
-	set cell_name [get_attribute [get_attribute $timing_point object] full_name] ;# for each timing point we can extract multiple attributes (e.g. arrival time)
-	set arrival [get_attribute $timing_point arrival]
-	puts "$cell_name --> $arrival"
-}
+
+global area_iniziale, leakage_power, switching_power
 
 #################################################
 proc evaluate_area { } {
-	
+	#stefano
 }
+
 ##################################################
 proc switching_power { } {
 	
-	
+	#claudia
 }
+
 ####################################################
 proc leakage_power { } {
-	
+
+ #claudia	
 }
+
 ####################################################
-proc optimize { start_main allowed_slack} {
-	
-	
-	
+proc swap { } {
+	#stefano
+}
+
+######################################################
+proc score { } {
+
+	#sclaudia
 }
 
 
 
+
+##########################
+proc optimize { start_main allowed_slack} {
+	#mattia
+	#power totale
+
+	while {
+		#swap iniziale sul non critical path fino a raggiungere slack minore LVT->HVT
+	}
+	
+	if ;#check tempo massimo raggiunto 
+		while { 
+			while { ;#ciclo su ogni nodo facendo resizing considerando anche HVT
+
+			if ;#check tempo massimo raggiunto
+			}
+			#swap se hai miglioramenti nel slack LVT->HVT
+		}
+		
+	}
+	
+	
+}
+
+###############################
 proc dualVth {args} {
 	parse_proc_arguments -args $args results
 	set allowed_slack $results(-allowed_slack)
