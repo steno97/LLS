@@ -1,7 +1,8 @@
 source ./scripts/pt_analysis
 
 
-global area_iniziale, leakage_power, switching_power
+
+global area_iniziale, leakage_iniziale, dynamic_iniziale
 
 #################################################
 proc evaluate_area { } {
@@ -10,15 +11,15 @@ proc evaluate_area { } {
 }
 
 ##################################################
-proc switching_power { } {
-	
-	#claudia
+proc dynamic_power { } {
+	set dynamic [get_attribute [get_design] dynamic_power ]
+	return $dynamic
 }
 
 ####################################################
 proc leakage_power { } {
-
- #claudia	
+	set leakage [get_attribute [get_design] leakage_power ]
+	return $leakage
 }
 
 ####################################################
@@ -48,8 +49,13 @@ proc cells_swapping { cell_list vt_type} {
 
 ######################################################
 proc score { } {
+	set new_design [get_design]
+	set area [get_attribute $new_design area ]
+	set dynamic [get_attribute $new_design dynamic_power ]
+	set leakage [get_attribute $new_design leakage_power ]
 
-	#sclaudia
+	set score [ expr { ($area_iniziale/$area) + ($leakage_iniziale/$leakage) + ($dynamic_iniziale/$dynamic) } ]
+	return $score
 }
 
 
@@ -58,7 +64,11 @@ proc score { } {
 ##########################
 proc optimize { start_main allowed_slack} {
 	#mattia
-	#power totale
+	#power totale 
+	#valori iniziali:
+	set leakage_iniziale [get_attribute [get_design] leakage_power ]
+	set dynamic_iniziale [get_attribute [get_design] dynamic_power ]
+	set area_iniziale [get_attribute [get_design] leakage_power ]
 
 	while {
 		#swap iniziale sul non critical path fino a raggiungere slack minore LVT->HVT
